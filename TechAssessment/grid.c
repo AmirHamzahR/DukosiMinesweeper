@@ -4,6 +4,12 @@
 #include <stdlib.h>
 
 /* UPDATING THE STATE OF THE GAME*/
+
+/*
+ * The function generates a new game grid, places the specified number of mines in a
+ * predetermined pattern (currently on even coordinates), and then initializes the rest
+ * of the grid. Finally, it calculates the number of adjacent mines for each square.
+ */
 void generateGrid(Grid *grid, int size, int mineCount) {
     grid->size = size;
     grid->mineCount = mineCount;
@@ -11,7 +17,7 @@ void generateGrid(Grid *grid, int size, int mineCount) {
     // Place mines and initialize squares
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            initSquare(&grid->squares[i][j], 0, 0, 0, 0); // Initialize squares without adjacent bomb count
+            initSquare(&grid->squares[i][j], 0, 0, 0, 0);
             if (mineCount > 0 && i % 2 == 0 && j % 2 == 0) {
                 setBomb(&grid->squares[i][j], 1);
                 mineCount--;
@@ -29,17 +35,19 @@ void generateGrid(Grid *grid, int size, int mineCount) {
     }
 }
 
-// Function to calculate adjacent bombs for a square
+/*
+ * This function checks all adjacent squares to the given coordinates (x, y) and
+ * counts how many of those are mines. The count does not include the square at
+ * (x, y) itself.
+ */
 int adjacentBombs(Grid *grid, int x, int y) {
     int count = 0;
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
-            // Skip the current square
             if (i == x && j == y) continue;
-            
+    
             // Check if the indices are within bounds
             if (i >= 0 && i < grid->size && j >= 0 && j < grid->size) {
-                // Increment count if a bomb is found
                 if (grid->squares[i][j].isBomb) {
                     count++;
                 }
@@ -51,40 +59,39 @@ int adjacentBombs(Grid *grid, int x, int y) {
 
 /* UI ASPECT TO SHOW THE GRID AND SQUARES */
 
-/* Function to print out the grid in console*/
-/* Function to print out the grid in console */
+/*
+ * The grid is displayed to the user with symbols representing the state of each square:
+ * 'F' for flagged squares, 'M' for revealed mines (indicating a loss), 'X' for unrevealed
+ * squares, and the count of adjacent mines for revealed non-mine squares. If all non-mine
+ * squares are revealed, a win is declared.
+ */
 void printGame(Grid *grid) {
     int revealedNonBombCount = 0;
-    int totalNonBombCount = grid->size * grid->size - grid->mineCount; // Total number of non-bomb squares
+    int totalNonBombCount = grid->size * grid->size - grid->mineCount;
 
     // Print the grid
     for (int i = 0; i < grid->size; i++) {
         for (int j = 0; j < grid->size; j++) {
             if (grid->squares[i][j].isFlagged) {
-                printf("F  ");  // Flagged square
+                printf("F  ");  
             } else if (grid->squares[i][j].isRevealed) {
                 if (grid->squares[i][j].isBomb) {
-                    printf("M  ");  // Revealed bomb
-                    grid->continueGame = 0; // The player hit a bomb and loses the game
+                    printf("M  ");  
+                    grid->continueGame = 0; 
                 } else {
-                    printf("%d  ", grid->squares[i][j].numBombs);  // Number of adjacent bombs
-                    revealedNonBombCount++; // Increment the count of revealed non-bomb squares
+                    printf("%d  ", grid->squares[i][j].numBombs);
+                    revealedNonBombCount++; 
                 }
             } else {
-                printf("X  ");  // Hidden square
+                printf("X  ");
             }
         }
-        printf("\n");  // New line at the end of the row
+        printf("\n");
     }
 
     // Check for a win
     if (revealedNonBombCount == totalNonBombCount) {
         printf("Congratulations, you've won!\n");
-        grid->continueGame = 0; // End the game loop after winning
+        grid->continueGame = 0;
     }
 }
-
-
-
-
-

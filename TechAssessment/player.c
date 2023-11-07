@@ -4,6 +4,11 @@
 #include "grid.h"
 #include "square.h"
 
+/*
+ * This function welcomes the player and asks if they want to start a game. If the player
+ * chooses to play, the game grid is initialized and the game loop begins. If the player
+ * chooses not to play or inputs an invalid response, the game will exit or prompt again.
+ */
 void startGame(Grid *grid)
 {
     char ans;
@@ -29,6 +34,11 @@ void startGame(Grid *grid)
     }
 }
 
+/*
+ * In this loop, the player can choose to clear or flag squares, start a new game, or quit.
+ * The function handles invalid input by prompting the user to try again. Each valid action
+ * taken by the user results in an updated game state and grid display.
+ */
 void askUser(Grid *grid) {
     int i, j;
     int choice;
@@ -39,33 +49,34 @@ void askUser(Grid *grid) {
         printf("3. Unflag Square\n");
         printf("4. New Game\n");
         printf("5. Quit\n");
+
         if (scanf("%d", &choice) != 1) {
             printf("Invalid input, please enter a number.\n");
-            while (getchar() != '\n'); // Clear the input buffer
-            continue; // Skip the rest of the loop iteration
+            while (getchar() != '\n'); 
+            continue; 
         }
 
         switch (choice) {
             case 1:
-                // Assuming setRevealed is implemented to reveal the square and check for game over conditions
+                // Reveal the squares
                 i = askCoordinates(grid, "x");
                 j = askCoordinates(grid, "y");
                 setRevealed(&grid->squares[i][j], 1);
                 break;
             case 2:
-                // Assuming setFlagged is implemented to flag the square
+                // Flag the square
                 i = askCoordinates(grid, "x");
                 j = askCoordinates(grid, "y");
                 setFlagged(&grid->squares[i][j], 1);
                 break;
             case 3:
-                // Assuming setFlagged is implemented to unflag the square
+                // Unflag the square
                 i = askCoordinates(grid, "x");
                 j = askCoordinates(grid, "y");
                 setFlagged(&grid->squares[i][j], 0);
                 break;
             case 4:
-                // Assuming startGame is implemented to reset the grid and start a new game
+                // To reset the grid and start a new game
                 startGame(grid);
                 return;
                 break;
@@ -79,11 +90,15 @@ void askUser(Grid *grid) {
                 printf("Invalid option. Please try again.\n");
                 break;
         }
-        printGame(grid); // Assuming printGame function is defined to print the current state of the grid
+        printGame(grid);
     }
     printf("Game over!\n");
 }
 
+/*
+ * The function repeatedly prompts for a coordinate until a valid number within the grid
+ * bounds is entered. If 'b' is entered, the function signals the caller to go back.
+ */
 int askCoordinates(Grid *grid, char *coordinate) {
     int x;
     do {
@@ -97,7 +112,7 @@ int askCoordinates(Grid *grid, char *coordinate) {
         }
         // If the input is out of bounds, inform the user and prompt again
         if (x < 0 || x > grid->size) {
-            printf("Coordinates out of bounds! Please enter a value from 0 to %d.\n", grid->size - 1);
+            printf("Coordinates out of bounds! Please enter a value from 1 to %d.\n", grid->size);
         }
     } while (x < 0 || x > grid->size);  // Repeat until a valid coordinate is entered
 
