@@ -12,25 +12,32 @@
 void startGame(Grid *grid)
 {
     char ans;
+    int inputValid = 0;
     printf("Welcome to the game!\n");
-    printf("Do you want to play? (Y/N)\n");
-    scanf("%c", &ans);
-    if(ans == 'y' || 'Y')
-    {
-        grid->continueGame = 1;
-        printf("Starting game...\n");
-        generateGrid(grid, 8, 10);
-        printGame(grid);
-        askUser(grid);
-    }
-    else if (ans == 'n' || 'N')
-    {
-        grid->continueGame = 0;
-        printf("Goodbye!\n");
-    }
-    else
-    {
-        printf("Invalid input!\n");
+    while (!inputValid) {
+        printf("Do you want to play? (Y/N)\n");
+
+        if (scanf(" %c", &ans) == 1) { 
+            while (getchar() != '\n');
+            
+            if (ans == 'y' || ans == 'Y') {
+                grid->continueGame = 1;
+                printf("Starting game...\n");
+                generateGrid(grid, 8, 10);
+                printGame(grid);
+                askUser(grid);
+                inputValid = 1;
+            } else if (ans == 'n' || ans == 'N') {
+                grid->continueGame = 0;
+                printf("Goodbye!\n");
+                inputValid = 1; 
+            } else {
+                printf("Invalid input! Please enter Y for Yes or N for No.\n");
+            }
+        } else {
+            while (getchar() != '\n');
+            printf("Invalid input! Please enter Y for Yes or N for No.\n");
+        }
     }
 }
 
@@ -59,21 +66,21 @@ void askUser(Grid *grid) {
         switch (choice) {
             case 1:
                 // Reveal the squares
-                i = askCoordinates(grid, "x");
-                j = askCoordinates(grid, "y");
+                i = askCoordinates(grid, "y");
+                j = askCoordinates(grid, "x");
                 setRevealed(&grid->squares[i][j], 1);
                 break;
             case 2:
                 // Flag the square
-                i = askCoordinates(grid, "x");
-                j = askCoordinates(grid, "y");
-                setFlagged(&grid->squares[i][j], 1);
+                i = askCoordinates(grid, "y");
+                j = askCoordinates(grid, "x");
+                grid->flagsUsed = setFlagged(&grid->squares[i][j], 1, grid->flagsUsed);
                 break;
             case 3:
                 // Unflag the square
-                i = askCoordinates(grid, "x");
-                j = askCoordinates(grid, "y");
-                setFlagged(&grid->squares[i][j], 0);
+                i = askCoordinates(grid, "y");
+                j = askCoordinates(grid, "x");
+                grid->flagsUsed = setFlagged(&grid->squares[i][j], 0, grid->flagsUsed);
                 break;
             case 4:
                 // To reset the grid and start a new game

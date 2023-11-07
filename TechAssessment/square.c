@@ -39,23 +39,26 @@ void setRevealed(Square *sq, int isRevealed) {
  * is already flagged, it prints an error message or unflags it if the intention is to
  * remove the flag.
  */
-void setFlagged(Square *sq, int isFlagged) {
+int setFlagged(Square *sq, int isFlagged, int flagNums) {
+    int newFlagNums = flagNums;
     if (sq != NULL && !sq->isFlagged) {
         if(sq->isRevealed){
             printf("Square is revealed! Cannot flag it!\n");
-            return;
         }
         else{
             sq->isFlagged = isFlagged;
+            newFlagNums++;
         }
     }
     else {
         if(isFlagged == 0){
             sq->isFlagged = isFlagged;
+            newFlagNums--;
         }
         else
         printf("Square is already flagged!\n");
     }
+    return newFlagNums;
 }
 
 /*

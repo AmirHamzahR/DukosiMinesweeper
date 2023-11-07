@@ -12,6 +12,7 @@ typedef struct Square {
     int isBomb;
     int isFlagged;
     int isRevealed;
+    int flagsUsed;
     int numBombs;
 } Square;
 
@@ -37,7 +38,7 @@ void setBomb(Square *square, int isBomb);
  * @param sq Pointer to the Square to modify.
  * @param isFlagged The new flagged state to set (1 for flagged, 0 for unflagged).
  */
-void setFlagged(Square *square, int isFlagged);
+int setFlagged(Square *square, int isFlagged, int flagNums);
 
 /**
  * @brief Sets the bomb state of a square.

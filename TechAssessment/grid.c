@@ -18,6 +18,7 @@ void generateGrid(Grid *grid, int size, int mineCount) {
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             initSquare(&grid->squares[i][j], 0, 0, 0, 0);
+            /* In the future can add the random functionality for the mine */
             if (mineCount > 0 && i % 2 == 0 && j % 2 == 0) {
                 setBomb(&grid->squares[i][j], 1);
                 mineCount--;
@@ -45,7 +46,6 @@ int adjacentBombs(Grid *grid, int x, int y) {
     for (int i = x - 1; i <= x + 1; i++) {
         for (int j = y - 1; j <= y + 1; j++) {
             if (i == x && j == y) continue;
-    
             // Check if the indices are within bounds
             if (i >= 0 && i < grid->size && j >= 0 && j < grid->size) {
                 if (grid->squares[i][j].isBomb) {
@@ -62,13 +62,15 @@ int adjacentBombs(Grid *grid, int x, int y) {
 /*
  * The grid is displayed to the user with symbols representing the state of each square:
  * 'F' for flagged squares, 'M' for revealed mines (indicating a loss), 'X' for unrevealed
- * squares, and the count of adjacent mines for revealed non-mine squares. If all non-mine
- * squares are revealed, a win is declared.
+ * squares, and the count of adjacent mines for revealed non-mine squares. It also shows the
+ * amount of flags left in the game for the user. If all non-mine squares are revealed, a 
+ * win is declared.
  */
 void printGame(Grid *grid) {
     int revealedNonBombCount = 0;
     int totalNonBombCount = grid->size * grid->size - grid->mineCount;
-
+    printf("\n1  2  3  4  5  6  7  8\n");
+    printf("-----------------------\n");
     // Print the grid
     for (int i = 0; i < grid->size; i++) {
         for (int j = 0; j < grid->size; j++) {
@@ -86,8 +88,11 @@ void printGame(Grid *grid) {
                 printf("X  ");
             }
         }
-        printf("\n");
+        printf("| %d\n", i+1);
     }
+
+    // Checks flags left, in the near future can also add in time here.
+    printf("\nFlags left: %d\n\n", grid->mineCount - grid->flagsUsed /* add time variable */);
 
     // Check for a win
     if (revealedNonBombCount == totalNonBombCount) {

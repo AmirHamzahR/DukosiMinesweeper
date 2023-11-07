@@ -14,6 +14,7 @@
 typedef struct Grid {
     int size;
     int mineCount;
+    int flagsUsed;
     int continueGame;
     Square squares[8][8];
 } Grid;
