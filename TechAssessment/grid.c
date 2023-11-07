@@ -52,7 +52,11 @@ int adjacentBombs(Grid *grid, int x, int y) {
 /* UI ASPECT TO SHOW THE GRID AND SQUARES */
 
 /* Function to print out the grid in console*/
-void printGame(const Grid *grid) {
+/* Function to print out the grid in console */
+void printGame(Grid *grid) {
+    int revealedNonBombCount = 0;
+    int totalNonBombCount = grid->size * grid->size - grid->mineCount; // Total number of non-bomb squares
+
     // Print the grid
     for (int i = 0; i < grid->size; i++) {
         for (int j = 0; j < grid->size; j++) {
@@ -61,8 +65,10 @@ void printGame(const Grid *grid) {
             } else if (grid->squares[i][j].isRevealed) {
                 if (grid->squares[i][j].isBomb) {
                     printf("M  ");  // Revealed bomb
+                    grid->continueGame = 0; // The player hit a bomb and loses the game
                 } else {
                     printf("%d  ", grid->squares[i][j].numBombs);  // Number of adjacent bombs
+                    revealedNonBombCount++; // Increment the count of revealed non-bomb squares
                 }
             } else {
                 printf("X  ");  // Hidden square
@@ -70,7 +76,14 @@ void printGame(const Grid *grid) {
         }
         printf("\n");  // New line at the end of the row
     }
+
+    // Check for a win
+    if (revealedNonBombCount == totalNonBombCount) {
+        printf("Congratulations, you've won!\n");
+        grid->continueGame = 0; // End the game loop after winning
+    }
 }
+
 
 
 

@@ -13,7 +13,13 @@ void initSquare(Square *sq, int isBomb, int isFlagged, int isRevealed, int numBo
 
 void setRevealed(Square *sq, int isRevealed) {
     if (sq != NULL && !sq->isRevealed) {
-        sq->isRevealed = isRevealed;
+        if(sq->isFlagged) {
+            printf("Square is flagged! Unflag it first!\n");
+            return;
+        }
+        else{
+            sq->isRevealed = isRevealed;
+        }
     }
     else {
         printf("Square is already revealed!\n");
@@ -22,9 +28,19 @@ void setRevealed(Square *sq, int isRevealed) {
 
 void setFlagged(Square *sq, int isFlagged) {
     if (sq != NULL && !sq->isFlagged) {
-        sq->isFlagged = isFlagged;
+        if(sq->isRevealed){
+            printf("Square is revealed! Cannot flag it!\n");
+            return;
+        }
+        else{
+            sq->isFlagged = isFlagged;
+        }
     }
     else {
+        if(isFlagged == 0){
+            sq->isFlagged = isFlagged;
+        }
+        else
         printf("Square is already flagged!\n");
     }
 }
