@@ -1,7 +1,5 @@
 // Grid.c
 #include "grid.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /* UPDATING THE STATE OF THE GAME*/
 
@@ -75,7 +73,7 @@ void printGame(Grid *grid) {
     for (int i = 0; i < grid->size; i++) {
         for (int j = 0; j < grid->size; j++) {
             if (grid->squares[i][j].isFlagged) {
-                printf("F  ");  
+                printf("F  "); 
             } else if (grid->squares[i][j].isRevealed) {
                 if (grid->squares[i][j].isBomb) {
                     printf("M  ");  

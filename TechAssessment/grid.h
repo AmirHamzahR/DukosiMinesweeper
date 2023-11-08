@@ -2,6 +2,8 @@
 #define grid_h
 
 #include "square.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * @brief Represents the game board for Minesweeper.
