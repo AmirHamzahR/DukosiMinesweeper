@@ -5,7 +5,7 @@ Creating a minesweeper game using C language for Dukosi C language challenge.
 
 ![architecture](pic/MineCArch.png)
 
-The overall diagram shows that two application (.exe) is being created, the main game, minesweeper.exe, and the test application, test_application.exe
+The overall diagram shows that two application (.exe) is being created, the main game, minesweeper.exe, and the test application, test_application.exe.
 
 # Instructions
 
