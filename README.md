@@ -24,7 +24,7 @@ and then running the application by
 ```
 in the console.
 
-![Starting](DukosiNotes/pic/Starting.png)
+![Starting](pic/Starting.png)
 
 The user can input "y" for yes or "n" for no if they want to play the game.
 
