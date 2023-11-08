@@ -38,6 +38,8 @@ If "y", then the grid will be outputted at the console with some instructions on
 5. Quit
 
 ![FinalGameState](pic/FinalGameState.png)
+
+For choice 1, 2, and 3, the console will prompt the user to input the x and y co-ordinates in revealing, flagging or unflagging the squares. As shown above, the square at (1,1) has been flagged by the user after choosing the 2nd choice and inputting the co-ordinates.
 # Test Output
 
 These are the test results which shows the revealed grid states which contains the mine and adjacent mine squares, the winning state, and the losing state. These can be done by running the instruction in the console,
