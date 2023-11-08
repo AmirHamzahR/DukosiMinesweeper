@@ -3,7 +3,7 @@
 Creating a minesweeper game using C language for Dukosi C language challenge.
 # High Level Architecture
 
-![architecture](DukosiNotes/pic/MineCArch.png)
+![architecture](pic/MineCArch.png)
 
 The overall diagram shows that two application (.exe) is being created, the main game, minesweeper.exe, and the test application, test_application.exe
 
@@ -36,7 +36,7 @@ If "y", then the grid will be outputted at the console with some instructions on
 4. New Game
 5. Quit
 
-![FinalGameState](DukosiNotes/pic/FinalGameState)
+![FinalGameState](pic/FinalGameState.png)
 # Test Output
 
 These are the test results which shows the revealed grid states which contains the mine and adjacent mine squares, the winning state, and the losing state. These can be done by running the instruction in the console,
@@ -53,10 +53,10 @@ and then running the application
 ```
 ## Revealed State
 
-![Revealed](DukosiNotes/pic/Reveal.png)
+![Revealed](pic/Reveal.png)
 ## Winning State
 
-![Revealed](DukosiNotes/pic/Success.png)
+![Revealed](pic/Success.png)
 ## Losing State
 
-![Revealed](DukosiNotes/pic/Lost.png)
+![Revealed](pic/Lost.png)
