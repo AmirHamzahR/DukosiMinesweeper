@@ -8,8 +8,6 @@ Creating a minesweeper game using C language for Dukosi C language challenge.
 The overall diagram shows that two application (.exe) is being created, the main game, minesweeper.exe, and the test application, test_application.exe. 
 
 In future cases, the GUI aspect can be implemented using the functions inside the Player.c and Grid.c header files.
-
-
 # Instructions
 
 Here are the instructions on how to play the game. This is done by compiling and creating the files
